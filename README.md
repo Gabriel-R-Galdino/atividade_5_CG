@@ -1,6 +1,6 @@
 # 🖼️ Atividade 5 – Computação Gráfica
 
-Projeto da disciplina de **Computação Gráfica** – Atividade 5.  
+Projeto da disciplina de **Computação Gráfica** – Atividade 5.
 O objetivo é processar uma imagem no formato `.ppm` e gerar três versões:
 
 
@@ -78,7 +78,7 @@ O objetivo é processar uma imagem no formato `.ppm` e gerar três versões:
 
 ---
 
-## 👨‍💻 Autores 
+## 👨‍💻 Autores
 
-Gabriel Rosa Galdino
-
+- Gabriel Rosa Galdino
+- Yohanan Santana

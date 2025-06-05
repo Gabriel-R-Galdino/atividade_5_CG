@@ -14,13 +14,14 @@ endif
 OUT_DIR := build
 SRC_DIR := src
 INC_DIR := include
+CFLAGS := -Wall -Wpedantic -O0
 
 # Alvo padrão
 all: $(OUT_DIR)/Main$(EXE_EXT)
 
 # Compilar Main
 $(OUT_DIR)/Main$(EXE_EXT): $(SRC_DIR)/Main.c $(SRC_DIR)/Biblioteca.c | $(OUT_DIR)
-	$(CC) -o $@ $(SRC_DIR)/Main.c $(SRC_DIR)/Biblioteca.c -I$(INC_DIR)
+	$(CC) -o $@ $(SRC_DIR)/Main.c $(SRC_DIR)/Biblioteca.c -I$(INC_DIR) $(CFLAGS)
 
 # Criar diretório de saída
 $(OUT_DIR):
