@@ -114,6 +114,7 @@ Universidade Estadual de Santa Cruz (UESC)
 
 - Gabriel Rosa Galdino
 - Yohanan Santana
+- Enzo Fernandes Sarmento
 
 ---
 
