@@ -1,8 +1,31 @@
 # 🖼️ Atividade 5 – Computação Gráfica
 
-Projeto da disciplina de **Computação Gráfica** – Atividade 5.  
-O objetivo é processar uma imagem no formato `.ppm` e gerar três versões:
+Projeto da disciplina de **Computação Gráfica** – Atividade 5.
 
+Este projeto tem como objetivo desenvolver um programa em **C puro** que realiza reamostragem de imagens no formato `.ppm` (modo ASCII - P3), aplicando diferentes algoritmos de **interpolação para ampliação e redução** da imagem original.
+
+## Objetivo
+
+O programa deve ler uma imagem `.ppm` a partir do diretório `img/` e gerar **quatro versões processadas** utilizando os seguintes métodos:
+
+1. **Ampliação por Vizinho Mais Próximo (interpolação de 1-vizinhança)**
+
+   - Método rápido e simples, copia o valor do pixel mais próximo.
+   - Gera bordas mais definidas porém serrilhadas.
+
+2. **Ampliação por Média Aritmética Simples (interpolação de 4-vizinhança)**
+
+   - Cada pixel ampliado é calculado pela média dos quatro vizinhos.
+   - Suaviza bordas e reduz aliasing.
+
+3. **Redução por Vizinho Mais Próximo**
+
+   - Escolhe o pixel correspondente mais próximo da imagem original.
+   - Rápido, mas pode gerar perda de detalhes e aliasing.
+
+4. **Redução com Interpolação Biquadrática (9-vizinhança)**
+   - Usa o pixel central e seus 8 vizinhos com pesos ponderados.
+   - Mantém mais detalhes e suaviza transições.
 
 ---
 
@@ -64,9 +87,10 @@ O objetivo é processar uma imagem no formato `.ppm` e gerar três versões:
    ```
 
 6. **Verifique a pasta `img/`** para os arquivos de saída:
-   - `arco-iris_1.pgm` → cinza (média simples)
-   - `arco-iris_2.pgm` → cinza (média ponderada)
-   - `arco-iris_3.ppm` → negativo
+   - `nome_ampliada_vizinho.ppm` → ampliação usando vizinho mais próximo (1-vizinhança)
+   - `nome_ampliada_media.ppm` → ampliação usando média aritmética (4-vizinhança)
+   - `nome_reduzida_vizinho.ppm` → redução usando vizinho mais próximo
+   - `nome_reduzida_biquadratica.ppm` → redução com interpolação biquadrática (9-vizinhança)
 
 ---
 
@@ -78,7 +102,21 @@ O objetivo é processar uma imagem no formato `.ppm` e gerar três versões:
 
 ---
 
-## 👨‍💻 Autores 
+## 🎓 Informações Acadêmicas
 
-Gabriel Rosa Galdino
+Desenvolvido para a disciplina **CET080 – Computação Gráfica**, ministrada pela  
+**Prof.ª Dra. Vânia Cordeiro da Silva**  
+Universidade Estadual de Santa Cruz (UESC)
 
+---
+
+## 👨‍💻 Autores
+
+- Gabriel Rosa Galdino
+- Yohanan Santana
+
+---
+
+## 📄 Licença
+
+Este projeto é apenas para fins educacionais e acadêmicos.

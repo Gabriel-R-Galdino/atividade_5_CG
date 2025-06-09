@@ -14,7 +14,6 @@ int main() {
     int novaAlturaReduc = nlin / 2;   // reduzir pela metade a altura
 
     // Variáveis para receber as imagens processadas
-    int **ampliadaR, **ampliadaG, **ampliadaB;
     int **reduzidaR, **reduzidaG, **reduzidaB;
 
     char nomeReducVizinho[150];
