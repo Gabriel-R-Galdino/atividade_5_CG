@@ -4,7 +4,7 @@ Projeto da disciplina de **Computação Gráfica** – Atividade 5.
 
 Este projeto tem como objetivo desenvolver um programa em **C puro** que realiza reamostragem de imagens no formato `.ppm` (modo ASCII - P3), aplicando diferentes algoritmos de **interpolação para ampliação e redução** da imagem original.
 
-## Objetivo
+## 🎯 Objetivo
 
 O programa deve ler uma imagem `.ppm` a partir do diretório `img/` e gerar **quatro versões processadas** utilizando os seguintes métodos:
 
