@@ -108,7 +108,6 @@ Desenvolvido para a disciplina **CET080 – Computação Gráfica**, ministrada 
 **Prof.ª Dra. Vânia Cordeiro da Silva**  
 Universidade Estadual de Santa Cruz (UESC)
 
----
 
 ## 👨‍💻 Autores
 
