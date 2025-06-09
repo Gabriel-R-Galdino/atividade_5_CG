@@ -6,6 +6,7 @@ int **imagemR, **imagemG, **imagemB, ncol, nlin, quantizacao;
 char nome_entrada[100];
 char nome_base[100];
 
+// Função para ler o cabeçalho do arquivo PPM
 void ler_cabecalho(void) {
     char controle[4];
     fscanf(fpin, "%s\n", controle);
@@ -13,6 +14,7 @@ void ler_cabecalho(void) {
     fscanf(fpin, "%d\n", &quantizacao);
 }
 
+// Função para ler a imagem do arquivo PPM
 void ler_imagem(void) {
     imagemR = (int **)malloc(nlin * sizeof(int *));
     imagemG = (int **)malloc(nlin * sizeof(int *));
@@ -33,6 +35,7 @@ void ler_imagem(void) {
     }
 }
 
+// Função para remover a extensão do nome do arquivo
 void remover_extensao(char *nome) {
     int i;
     for (i = 0; nome[i] != '\0'; i++);
@@ -44,6 +47,7 @@ void remover_extensao(char *nome) {
     }
 }
 
+// Função para carregar a imagem do arquivo PPM
 int carregar_imagem(void) {
     printf("Digite o nome da imagem .ppm: ");
     scanf("%s", nome_entrada);
@@ -109,6 +113,8 @@ int media9(int **matriz, int x, int y, int largura, int altura) {
     }
     return soma / contador;
 }
+
+// Demais codigos devem ser adicionados aqui
 
 // 4. Redução com interpolação biquadrática (9 vizinhos)
 void reducao_biquadratica(int novaLargura, int novaAltura, int ***outR, int ***outG, int ***outB) {
