@@ -122,6 +122,36 @@ int media9(int **matriz, int x, int y, int largura, int altura) {
 
 // Demais codigos devem ser adicionados aqui
 
+// 1. Ampliação pelo vizinho mais próximo
+void ampliacao_vizinho_mais_proximo(int novaLargura, int novaAltura, int ***outR, int ***outG, int ***outB) {
+    float escalaX = (float)ncol / novaLargura;
+    float escalaY = (float)nlin / novaAltura;
+
+    *outR = malloc(novaAltura * sizeof(int *));
+    *outG = malloc(novaAltura * sizeof(int *));
+    *outB = malloc(novaAltura * sizeof(int *));
+    
+    if (!(*outR) || !(*outG) || !(*outB)) {
+        printf("Erro ao alocar memória para a imagem ampliada.\n");
+        exit(1);
+    }
+
+    for (int i = 0; i < novaAltura; i++) {
+        (*outR)[i] = malloc(novaLargura * sizeof(int));
+        (*outG)[i] = malloc(novaLargura * sizeof(int));
+        (*outB)[i] = malloc(novaLargura * sizeof(int));
+
+        for (int j = 0; j < novaLargura; j++) {
+            int x_original = (int)(j * escalaX);
+            int y_original = (int)(i * escalaY);
+
+            (*outR)[i][j] = imagemR[y_original][x_original];
+            (*outG)[i][j] = imagemG[y_original][x_original];
+            (*outB)[i][j] = imagemB[y_original][x_original];
+        }
+    }
+}
+
 // 4. Redução com interpolação biquadrática (9 vizinhos)
 void reducao_biquadratica(int novaLargura, int novaAltura, int ***outR, int ***outG, int ***outB) {
     float escalaX = (float)ncol / novaLargura;
