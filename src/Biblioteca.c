@@ -20,12 +20,18 @@ void ler_imagem(void) {
     imagemG = (int **)malloc(nlin * sizeof(int *));
     imagemB = (int **)malloc(nlin * sizeof(int *));
 
+    if (!imagemR || !imagemG || !imagemB) {
+        printf("Erro ao alocar memória para a imagem.\n");
+        exit(1);
+    }
+
+    // Alocação de memória para cada linha da imagem
     for (int i = 0; i < nlin; i++) {
         imagemR[i] = (int *)malloc(ncol * sizeof(int));
         imagemG[i] = (int *)malloc(ncol * sizeof(int));
         imagemB[i] = (int *)malloc(ncol * sizeof(int));
     }
-
+    
     for (int lin = 0; lin < nlin; lin++) {
         for (int col = 0; col < ncol; col++) {
             fscanf(fpin, "%d", &imagemR[lin][col]);
@@ -124,6 +130,12 @@ void reducao_biquadratica(int novaLargura, int novaAltura, int ***outR, int ***o
     *outR = malloc(novaAltura * sizeof(int *));
     *outG = malloc(novaAltura * sizeof(int *));
     *outB = malloc(novaAltura * sizeof(int *));
+
+    if (!(*outR) || !(*outG) || !(*outB)) {
+        printf("Erro ao alocar memória para a imagem reduzida.\n");
+        exit(1);
+    }
+
     for (int i = 0; i < novaAltura; i++) {
         (*outR)[i] = malloc(novaLargura * sizeof(int));
         (*outG)[i] = malloc(novaLargura * sizeof(int));
