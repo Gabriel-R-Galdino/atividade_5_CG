@@ -10,13 +10,25 @@ int main() {
 
     // Definir as novas dimensões para ampliação e redução
     
+    int novaLarguraAmpl = ncol * 2; // dobrando a largura
+    int novaAlturaAmpl = nlin * 2; // dobrando a altura
     int novaLarguraReduc = ncol / 2;  // reduzir pela metade a largura
     int novaAlturaReduc = nlin / 2;   // reduzir pela metade a altura
 
     // Variáveis para receber as imagens processadas
-    int **reduzidaR, **reduzidaG, **reduzidaB;
+    int **reduzidaR, **reduzidaG, **reduzidaB, **ampliadaR, **ampliadaG, **ampliadaB;
 
+    char nomeAmplVizinho[150];
     char nomeReducVizinho[150];
+
+    // 1. Ampliação com vizinho mais próximo
+    ampliacao_vizinho_mais_proximo(novaLarguraAmpl, novaAlturaAmpl, &ampliadaR, &ampliadaG, &ampliadaB);
+    snprintf(nomeAmplVizinho, sizeof(nomeAmplVizinho), "img/%s_ampliada_vizinho.ppm", nome_base);
+    salvar_ppm(nomeAmplVizinho, ampliadaR, ampliadaG, ampliadaB, novaLarguraAmpl, novaAlturaAmpl);
+
+    liberar_imagem(ampliadaR, novaAlturaAmpl);
+    liberar_imagem(ampliadaG, novaAlturaAmpl);
+    liberar_imagem(ampliadaB, novaAlturaAmpl);
     
     // 3. Redução por vizinho mais próximo
     reducao_vizinho(novaLarguraReduc, novaAlturaReduc, &reduzidaR, &reduzidaG, &reduzidaB);
