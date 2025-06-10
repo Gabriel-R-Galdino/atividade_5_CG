@@ -18,6 +18,11 @@ int main() {
 
     char nomeReducVizinho[150];
     
+    // 3. Redução por vizinho mais próximo
+    reducao_vizinho(novaLarguraReduc, novaAlturaReduc, &reduzidaR, &reduzidaG, &reduzidaB);
+    snprintf(nomeReducVizinho, sizeof(nomeReducVizinho), "img/%s_reduzida_vizinho.ppm", nome_base);
+    salvar_ppm(nomeReducVizinho, reduzidaR, reduzidaG, reduzidaB, novaLarguraReduc, novaAlturaReduc);
+    
     // 4. Redução com interpolação biquadrática (9 vizinhos)
     reducao_biquadratica(novaLarguraReduc, novaAlturaReduc, &reduzidaR, &reduzidaG, &reduzidaB);
     snprintf(nomeReducVizinho, sizeof(nomeReducVizinho), "img/%s_reduzida_biquadratica.ppm", nome_base);
