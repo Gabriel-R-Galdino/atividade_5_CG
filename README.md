@@ -104,11 +104,10 @@ O programa deve ler uma imagem `.ppm` a partir do diretório `img/` e gerar **qu
 
 ## 🎓 Informações Acadêmicas
 
-Desenvolvido para a disciplina **CET080 – Computação Gráfica**, ministrada pela  
-**Prof.ª Dra. Vânia Cordeiro da Silva**  
-Universidade Estadual de Santa Cruz (UESC)
+📚 **Disciplina:** CET080 – Computação Gráfica  
+👩‍🏫 **Professora:** Dra. Vânia Cordeiro da Silva  
+🏫 **Instituição:** Universidade Estadual de Santa Cruz (UESC)
 
----
 
 ## 👨‍💻 Autores
 

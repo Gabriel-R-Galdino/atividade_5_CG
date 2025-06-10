@@ -121,7 +121,6 @@ int media9(int **matriz, int x, int y, int largura, int altura) {
 }
 
 // Demais codigos devem ser adicionados aqui
-
 // 1. Ampliação pelo vizinho mais próximo
 void ampliacao_vizinho_mais_proximo(int novaLargura, int novaAltura, int ***outR, int ***outG, int ***outB) {
     float escalaX = (float)ncol / novaLargura;
@@ -148,6 +147,45 @@ void ampliacao_vizinho_mais_proximo(int novaLargura, int novaAltura, int ***outR
             (*outR)[i][j] = imagemR[y_original][x_original];
             (*outG)[i][j] = imagemG[y_original][x_original];
             (*outB)[i][j] = imagemB[y_original][x_original];
+        }
+    }
+}
+
+
+// 3. Redução por Vizinho Mais Próximo
+void reducao_vizinho(int novaLargura, int novaAltura, int ***outR, int ***outG, int ***outB) {
+    // Calcula a razão de escala
+    float escalaX = (float)ncol / novaLargura;
+    float escalaY = (float)nlin / novaAltura;
+
+    // Aloca memória para os canais R, G, B da nova imagem
+    *outR = malloc(novaAltura * sizeof(int *));
+    *outG = malloc(novaAltura * sizeof(int *));
+    *outB = malloc(novaAltura * sizeof(int *));
+
+    if (!(*outR) || !(*outG) || !(*outB)) {
+        printf("Erro ao alocar memória para a imagem reduzida.\n");
+        exit(1);
+    }
+
+    for (int i = 0; i < novaAltura; i++) {
+        (*outR)[i] = malloc(novaLargura * sizeof(int));
+        (*outG)[i] = malloc(novaLargura * sizeof(int));
+        (*outB)[i] = malloc(novaLargura * sizeof(int));
+
+        for (int j = 0; j < novaLargura; j++) {
+            // Calcula a posição correspondente na imagem original (arredondando)
+            int x = (int)(j * escalaX + 0.5f);  // +0.5 para arredondar corretamente
+            int y = (int)(i * escalaY + 0.5f);
+
+            // Garante que x e y estão dentro dos limites da imagem original
+            x = (x >= ncol) ? ncol - 1 : x;
+            y = (y >= nlin) ? nlin - 1 : y;
+
+            // Copia o pixel mais próximo
+            (*outR)[i][j] = imagemR[y][x];
+            (*outG)[i][j] = imagemG[y][x];
+            (*outB)[i][j] = imagemB[y][x];
         }
     }
 }
