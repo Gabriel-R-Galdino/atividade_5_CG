@@ -111,10 +111,18 @@ O programa deve ler uma imagem `.ppm` a partir do diretório `img/` e gerar **qu
 
 ## 👨‍💻 Autores
 
-- Gabriel Rosa Galdino
-- Yohanan Santana
+- Antonio Henrique Oliveira Santos
+- Ariel Pina Ribeiro
+- Camilla Matos Araújo
 - Enzo Fernandes Sarmento
+- Erick Silva Souza
+- Gabriel Rosa Galdino
+- Henrique Sousa Brito
+- João Manoel Fidelis Santos
 - Michael Gabriel Cavalcante Batista
+- Rodrigo Almeida Pirôpo
+- Stella Ribas
+- Yohanan Santana
 
 ---
 
