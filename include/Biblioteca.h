@@ -20,6 +20,7 @@ void salvar_ppm(const char *nome_arquivo, int **R, int **G, int **B, int largura
 int clamp(int val, int min, int max);
 int media9(int **matriz, int x, int y, int largura, int altura);
 void ampliacao_vizinho_mais_proximo(int novaLargura, int novaAltura, int ***outR, int ***outG, int ***outB);
+void reducao_vizinho(int novaLargura, int novaAltura, int ***outR, int ***outG, int ***outB);
 void reducao_biquadratica(int novaLargura, int novaAltura, int ***outR, int ***outG, int ***outB);
 void liberar_imagem(int **imagem, int altura);
 
