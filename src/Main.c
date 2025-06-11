@@ -22,8 +22,8 @@ int main() {
     char nomeReducVizinho[150];
 
     // 1. Ampliação com vizinho mais próximo
-    ampliacao_vizinho_mais_proximo(novaLarguraAmpl, novaAlturaAmpl, &ampliadaR, &ampliadaG, &ampliadaB);
-    snprintf(nomeAmplVizinho, sizeof(nomeAmplVizinho), "img/%s_ampliada_vizinho.ppm", nome_base);
+    vizinho_proximo(novaLarguraAmpl, novaAlturaAmpl, &ampliadaR, &ampliadaG, &ampliadaB, 1);
+    nome_arquivo(nomeAmplVizinho, "_ampliada_vizinho");
     salvar_ppm(nomeAmplVizinho, ampliadaR, ampliadaG, ampliadaB, novaLarguraAmpl, novaAlturaAmpl);
 
     liberar_imagem(ampliadaR, novaAlturaAmpl);
@@ -31,8 +31,8 @@ int main() {
     liberar_imagem(ampliadaB, novaAlturaAmpl);
     
     // 3. Redução por vizinho mais próximo
-    reducao_vizinho(novaLarguraReduc, novaAlturaReduc, &reduzidaR, &reduzidaG, &reduzidaB);
-    snprintf(nomeReducVizinho, sizeof(nomeReducVizinho), "img/%s_reduzida_vizinho.ppm", nome_base);
+    vizinho_proximo(novaLarguraReduc, novaAlturaReduc, &reduzidaR, &reduzidaG, &reduzidaB, 0);
+    nome_arquivo(nomeReducVizinho, "_reduzida_vizinho");
     salvar_ppm(nomeReducVizinho, reduzidaR, reduzidaG, reduzidaB, novaLarguraReduc, novaAlturaReduc);
 
     liberar_imagem(reduzidaR, novaAlturaReduc);
@@ -41,7 +41,7 @@ int main() {
     
     // 4. Redução com interpolação biquadrática (9 vizinhos)
     reducao_biquadratica(novaLarguraReduc, novaAlturaReduc, &reduzidaR, &reduzidaG, &reduzidaB);
-    snprintf(nomeReducVizinho, sizeof(nomeReducVizinho), "img/%s_reduzida_biquadratica.ppm", nome_base);
+    nome_arquivo(nomeReducVizinho, "_reduzida_biquadratica");
     salvar_ppm(nomeReducVizinho, reduzidaR, reduzidaG, reduzidaB, novaLarguraReduc, novaAlturaReduc);
 
     liberar_imagem(reduzidaR, novaAlturaReduc);

@@ -120,11 +120,50 @@ int media9(int **matriz, int x, int y, int largura, int altura) {
     return soma / contador;
 }
 
+void nome_arquivo(char *buffer, const char *sufixo) {
+    int i = 0;
+
+    char *path = "img/";
+    while (*path != '\0') {
+        buffer[i++] = *path++;
+    }
+
+    int j = 0;
+    while (nome_base[j] != '\0') {
+        buffer[i++] = nome_base[j++];
+    }
+
+    while (*sufixo != '\0') {
+        buffer[i++] = *sufixo++;
+    }
+
+    char *ext = ".ppm";
+    while (*ext != '\0') {
+        buffer[i++] = *ext++;
+    }
+    buffer[i] = '\0';
+}
+
 // Demais codigos devem ser adicionados aqui
-// 1. Ampliação pelo vizinho mais próximo
-void ampliacao_vizinho_mais_proximo(int novaLargura, int novaAltura, int ***outR, int ***outG, int ***outB) {
+// 1. Ampliação pelo vizinho mais próximo e 3. Redução pelo vizinho mais próximo
+void vizinho_proximo(int novaLargura, int novaAltura, int ***outR, int ***outG, int ***outB, int flag) {
+    //Se flag = 1 = ampliação, se flag = 0 = redução
     float escalaX = (float)ncol / novaLargura;
     float escalaY = (float)nlin / novaAltura;
+
+    float arredonda_corretamente = 0.5f;
+    if (flag) {
+        if (escalaX > 1.0f || escalaY > 1.0f) {
+            printf("Tanto a largura quanto a altura precisam ser maiores que as originais\n");
+            exit(1);
+        }
+        arredonda_corretamente = 0;
+    } else {
+        if (escalaX < 1.0f || escalaY < 1.0f) {
+            printf("Tanto a largura quanto a altura precisam ser menores que as originais\n");
+            exit(1);
+        }
+    }
 
     *outR = malloc(novaAltura * sizeof(int *));
     *outG = malloc(novaAltura * sizeof(int *));
@@ -141,49 +180,9 @@ void ampliacao_vizinho_mais_proximo(int novaLargura, int novaAltura, int ***outR
         (*outB)[i] = malloc(novaLargura * sizeof(int));
 
         for (int j = 0; j < novaLargura; j++) {
-            int x_original = (int)(j * escalaX);
-            int y_original = (int)(i * escalaY);
+            int x = (int)(j * escalaX + arredonda_corretamente);
+            int y = (int)(i * escalaY + arredonda_corretamente);
 
-            (*outR)[i][j] = imagemR[y_original][x_original];
-            (*outG)[i][j] = imagemG[y_original][x_original];
-            (*outB)[i][j] = imagemB[y_original][x_original];
-        }
-    }
-}
-
-
-// 3. Redução por Vizinho Mais Próximo
-void reducao_vizinho(int novaLargura, int novaAltura, int ***outR, int ***outG, int ***outB) {
-    // Calcula a razão de escala
-    float escalaX = (float)ncol / novaLargura;
-    float escalaY = (float)nlin / novaAltura;
-
-    if (escalaX < 1.0f || escalaY < 1.0f) {
-        printf("Tanto a largura quanto a altura precisam ser menores que as originais\n");
-        exit(1);
-    }
-
-    // Aloca memória para os canais R, G, B da nova imagem
-    *outR = malloc(novaAltura * sizeof(int *));
-    *outG = malloc(novaAltura * sizeof(int *));
-    *outB = malloc(novaAltura * sizeof(int *));
-
-    if (!(*outR) || !(*outG) || !(*outB)) {
-        printf("Erro ao alocar memória para a imagem reduzida.\n");
-        exit(1);
-    }
-
-    for (int i = 0; i < novaAltura; i++) {
-        (*outR)[i] = malloc(novaLargura * sizeof(int));
-        (*outG)[i] = malloc(novaLargura * sizeof(int));
-        (*outB)[i] = malloc(novaLargura * sizeof(int));
-
-        for (int j = 0; j < novaLargura; j++) {
-            // Calcula a posição correspondente na imagem original (arredondando)
-            int x = (int)(j * escalaX + 0.5f);  // +0.5 para arredondar corretamente
-            int y = (int)(i * escalaY + 0.5f);
-
-            // Copia o pixel mais próximo
             (*outR)[i][j] = imagemR[y][x];
             (*outG)[i][j] = imagemG[y][x];
             (*outB)[i][j] = imagemB[y][x];
