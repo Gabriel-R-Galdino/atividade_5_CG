@@ -22,7 +22,7 @@ int main() {
     char nomeReducVizinho[150];
 
     // 1. Ampliação com vizinho mais próximo
-    ampliacao_vizinho_mais_proximo(novaLarguraAmpl, novaAlturaAmpl, &ampliadaR, &ampliadaG, &ampliadaB);
+    vizinho_proximo(novaLarguraAmpl, novaAlturaAmpl, &ampliadaR, &ampliadaG, &ampliadaB, 1);
     nome_arquivo(nomeAmplVizinho, "_ampliada_vizinho");
     salvar_ppm(nomeAmplVizinho, ampliadaR, ampliadaG, ampliadaB, novaLarguraAmpl, novaAlturaAmpl);
 
@@ -31,7 +31,7 @@ int main() {
     liberar_imagem(ampliadaB, novaAlturaAmpl);
     
     // 3. Redução por vizinho mais próximo
-    reducao_vizinho(novaLarguraReduc, novaAlturaReduc, &reduzidaR, &reduzidaG, &reduzidaB);
+    vizinho_proximo(novaLarguraReduc, novaAlturaReduc, &reduzidaR, &reduzidaG, &reduzidaB, 0);
     nome_arquivo(nomeReducVizinho, "_reduzida_vizinho");
     salvar_ppm(nomeReducVizinho, reduzidaR, reduzidaG, reduzidaB, novaLarguraReduc, novaAlturaReduc);
 
