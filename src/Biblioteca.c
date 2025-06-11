@@ -151,13 +151,11 @@ void vizinho_proximo(int novaLargura, int novaAltura, int ***outR, int ***outG, 
     float escalaX = (float)ncol / novaLargura;
     float escalaY = (float)nlin / novaAltura;
 
-    float arredonda_corretamente = 0.5f;
     if (flag) {
         if (escalaX > 1.0f || escalaY > 1.0f) {
             printf("Tanto a largura quanto a altura precisam ser maiores que as originais\n");
             exit(1);
         }
-        arredonda_corretamente = 0;
     } else {
         if (escalaX < 1.0f || escalaY < 1.0f) {
             printf("Tanto a largura quanto a altura precisam ser menores que as originais\n");
@@ -170,7 +168,7 @@ void vizinho_proximo(int novaLargura, int novaAltura, int ***outR, int ***outG, 
     *outB = malloc(novaAltura * sizeof(int *));
 
     if (!(*outR) || !(*outG) || !(*outB)) {
-        printf("Erro ao alocar memória para a imagem ampliada.\n");
+        printf("Erro ao alocar memória para a imagem vizinho mais proximo.\n");
         exit(1);
     }
 
@@ -180,8 +178,8 @@ void vizinho_proximo(int novaLargura, int novaAltura, int ***outR, int ***outG, 
         (*outB)[i] = malloc(novaLargura * sizeof(int));
 
         for (int j = 0; j < novaLargura; j++) {
-            int x = (int)(j * escalaX + arredonda_corretamente);
-            int y = (int)(i * escalaY + arredonda_corretamente);
+            int x = (int)(j * escalaX);
+            int y = (int)(i * escalaY);
 
             (*outR)[i][j] = imagemR[y][x];
             (*outG)[i][j] = imagemG[y][x];
