@@ -120,6 +120,30 @@ int media9(int **matriz, int x, int y, int largura, int altura) {
     return soma / contador;
 }
 
+void nome_arquivo(char *buffer, const char *sufixo) {
+    int i = 0;
+
+    char *path = "img/";
+    while (*path != '\0') {
+        buffer[i++] = *path++;
+    }
+
+    int j = 0;
+    while (nome_base[j] != '\0') {
+        buffer[i++] = nome_base[j++];
+    }
+
+    while (*sufixo != '\0') {
+        buffer[i++] = *sufixo++;
+    }
+
+    char *ext = ".ppm";
+    while (*ext != '\0') {
+        buffer[i++] = *ext++;
+    }
+    buffer[i] = '\0';
+}
+
 // Demais codigos devem ser adicionados aqui
 // 1. Ampliação pelo vizinho mais próximo
 void ampliacao_vizinho_mais_proximo(int novaLargura, int novaAltura, int ***outR, int ***outG, int ***outB) {
