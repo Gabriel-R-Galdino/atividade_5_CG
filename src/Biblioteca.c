@@ -31,7 +31,7 @@ void ler_imagem(void) {
         imagemG[i] = (int *)malloc(ncol * sizeof(int));
         imagemB[i] = (int *)malloc(ncol * sizeof(int));
     }
-    
+
     for (int lin = 0; lin < nlin; lin++) {
         for (int col = 0; col < ncol; col++) {
             fscanf(fpin, "%d", &imagemR[lin][col]);
@@ -129,7 +129,7 @@ void ampliacao_vizinho_mais_proximo(int novaLargura, int novaAltura, int ***outR
     *outR = malloc(novaAltura * sizeof(int *));
     *outG = malloc(novaAltura * sizeof(int *));
     *outB = malloc(novaAltura * sizeof(int *));
-    
+
     if (!(*outR) || !(*outG) || !(*outB)) {
         printf("Erro ao alocar memória para a imagem ampliada.\n");
         exit(1);
@@ -158,6 +158,11 @@ void reducao_vizinho(int novaLargura, int novaAltura, int ***outR, int ***outG, 
     float escalaX = (float)ncol / novaLargura;
     float escalaY = (float)nlin / novaAltura;
 
+    if (escalaX < 1.0f || escalaY < 1.0f) {
+        printf("Tanto a largura quanto a altura precisam ser menores que as originais\n");
+        exit(1);
+    }
+
     // Aloca memória para os canais R, G, B da nova imagem
     *outR = malloc(novaAltura * sizeof(int *));
     *outG = malloc(novaAltura * sizeof(int *));
@@ -177,10 +182,6 @@ void reducao_vizinho(int novaLargura, int novaAltura, int ***outR, int ***outG, 
             // Calcula a posição correspondente na imagem original (arredondando)
             int x = (int)(j * escalaX + 0.5f);  // +0.5 para arredondar corretamente
             int y = (int)(i * escalaY + 0.5f);
-
-            // Garante que x e y estão dentro dos limites da imagem original
-            x = (x >= ncol) ? ncol - 1 : x;
-            y = (y >= nlin) ? nlin - 1 : y;
 
             // Copia o pixel mais próximo
             (*outR)[i][j] = imagemR[y][x];
