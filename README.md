@@ -114,6 +114,7 @@ O programa deve ler uma imagem `.ppm` a partir do diretório `img/` e gerar **qu
 - Gabriel Rosa Galdino
 - Yohanan Santana
 - Enzo Fernandes Sarmento
+- Michael Gabriel Cavalcante Batista
 
 ---
 
