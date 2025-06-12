@@ -8,12 +8,26 @@ int main() {
     ler_imagem();
     fclose(fpin);
 
-    // Definir as novas dimensões para ampliação e redução
+    printf("Imagem lida!\n");
+    printf("Dimensões atuais: %dx%d\n", ncol, nlin);
 
-    int novaLarguraAmpl = ncol * 2; // dobrando a largura
-    int novaAlturaAmpl = nlin * 2; // dobrando a altura
-    int novaLarguraReduc = ncol / 2;  // reduzir pela metade a largura
-    int novaAlturaReduc = nlin / 2;   // reduzir pela metade a altura
+    int novaLarguraAmpl, novaAlturaAmpl;
+    printf("Digite a nova largura e altura (para ampliação):");
+    scanf("%d %d", &novaLarguraAmpl, &novaAlturaAmpl);
+    if (novaLarguraAmpl <= ncol || novaAlturaAmpl <= nlin) {
+        printf("Tanto a altura quanto a largura devem ser maiores que o valor atual!\n");
+        return 1;
+    }
+
+    int novaLarguraReduc, novaAlturaReduc;
+    printf("Digite a nova largura e altura (para redução):");
+    scanf("%d %d", &novaLarguraReduc, &novaAlturaReduc);
+    if (novaLarguraReduc >= ncol || novaAlturaReduc >= nlin) {
+        printf("Tanto a altura quanto a largura devem ser menores que o valor atual!\n");
+        return 1;
+    }
+
+    printf("Gerando imagens...\n");
 
     // Variáveis para receber as imagens processadas
     int **reduzidaR, **reduzidaG, **reduzidaB, **ampliadaR, **ampliadaG, **ampliadaB;
