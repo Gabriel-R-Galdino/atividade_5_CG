@@ -122,6 +122,7 @@ void nome_arquivo(char *buffer, const char *sufixo) {
     buffer[i] = '\0';
 }
 
+
 // Função para liberar memória de uma imagem
 void liberar_imagem(int **imagem, int altura) {
     for (int i = 0; i < altura; i++) {
