@@ -16,22 +16,10 @@ void ler_cabecalho(void) {
 
 // Função para ler a imagem do arquivo PPM
 void ler_imagem(void) {
-    imagemR = (int **)malloc(nlin * sizeof(int *));
-    imagemG = (int **)malloc(nlin * sizeof(int *));
-    imagemB = (int **)malloc(nlin * sizeof(int *));
+    imagemR = criar_matriz(ncol, nlin);
+    imagemG = criar_matriz(ncol, nlin);
+    imagemB = criar_matriz(ncol, nlin);
 
-    if (!imagemR || !imagemG || !imagemB) {
-        printf("Erro ao alocar memória para a imagem.\n");
-        exit(1);
-    }
-
-    // Alocação de memória para cada linha da imagem
-    for (int i = 0; i < nlin; i++) {
-        imagemR[i] = (int *)malloc(ncol * sizeof(int));
-        imagemG[i] = (int *)malloc(ncol * sizeof(int));
-        imagemB[i] = (int *)malloc(ncol * sizeof(int));
-    }
-    
     for (int lin = 0; lin < nlin; lin++) {
         for (int col = 0; col < ncol; col++) {
             fscanf(fpin, "%d", &imagemR[lin][col]);
@@ -98,56 +86,29 @@ void salvar_ppm(const char *nome_arquivo, int **R, int **G, int **B, int largura
     printf("Imagem salva: %s\n", nome_arquivo);
 }
 
-// Função auxiliar: clamp
-int clamp(int val, int min, int max) {
-    if (val < min) return min;
-    if (val > max) return max;
-    return val;
-}
+// Função pra adicionar nome do arquivo
+void nome_arquivo(char *buffer, const char *sufixo) {
+    int i = 0;
 
-// Função auxiliar: média de 9 vizinhos
-int media9(int **matriz, int x, int y, int largura, int altura) {
-    int soma = 0;
-    int contador = 0;
-    for (int i = -1; i <= 1; i++) {
-        for (int j = -1; j <= 1; j++) {
-            int xi = clamp(x + j, 0, largura - 1);
-            int yi = clamp(y + i, 0, altura - 1);
-            soma += matriz[yi][xi];
-            contador++;
-        }
-    }
-    return soma / contador;
-}
-
-// Demais codigos devem ser adicionados aqui
-
-// 4. Redução com interpolação biquadrática (9 vizinhos)
-void reducao_biquadratica(int novaLargura, int novaAltura, int ***outR, int ***outG, int ***outB) {
-    float escalaX = (float)ncol / novaLargura;
-    float escalaY = (float)nlin / novaAltura;
-
-    *outR = malloc(novaAltura * sizeof(int *));
-    *outG = malloc(novaAltura * sizeof(int *));
-    *outB = malloc(novaAltura * sizeof(int *));
-
-    if (!(*outR) || !(*outG) || !(*outB)) {
-        printf("Erro ao alocar memória para a imagem reduzida.\n");
-        exit(1);
+    char *path = "img/";
+    while (*path != '\0') {
+        buffer[i++] = *path++;
     }
 
-    for (int i = 0; i < novaAltura; i++) {
-        (*outR)[i] = malloc(novaLargura * sizeof(int));
-        (*outG)[i] = malloc(novaLargura * sizeof(int));
-        (*outB)[i] = malloc(novaLargura * sizeof(int));
-        for (int j = 0; j < novaLargura; j++) {
-            int x = (int)(j * escalaX);
-            int y = (int)(i * escalaY);
-            (*outR)[i][j] = media9(imagemR, x, y, ncol, nlin);
-            (*outG)[i][j] = media9(imagemG, x, y, ncol, nlin);
-            (*outB)[i][j] = media9(imagemB, x, y, ncol, nlin);
-        }
+    int j = 0;
+    while (nome_base[j] != '\0') {
+        buffer[i++] = nome_base[j++];
     }
+
+    while (*sufixo != '\0') {
+        buffer[i++] = *sufixo++;
+    }
+
+    char *ext = ".ppm";
+    while (*ext != '\0') {
+        buffer[i++] = *ext++;
+    }
+    buffer[i] = '\0';
 }
 
 // Função para liberar memória de uma imagem
@@ -168,4 +129,23 @@ void liberar_memoria(void) {
     free(imagemR);
     free(imagemG);
     free(imagemB);
+}
+
+// Função pra criar matriz
+int **criar_matriz(int largura, int altura) {
+    int **ret = malloc(altura * sizeof(int *));
+    if (!ret) {
+        printf("Erro ao alocar memória para a imagem.");
+        exit(1);
+    }
+
+    for (int i = 0; i < altura; i++) {
+        ret[i] = malloc(largura * sizeof(int));
+        if (!ret[i]) {
+            printf("Erro ao alocar memória para a imagem.");
+            exit(1);
+        }
+    }
+
+    return ret;
 }

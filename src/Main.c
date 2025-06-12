@@ -9,18 +9,44 @@ int main() {
     fclose(fpin);
 
     // Definir as novas dimensões para ampliação e redução
-    
+
+    int novaLarguraAmpl = ncol * 2; // dobrando a largura
+    int novaAlturaAmpl = nlin * 2; // dobrando a altura
     int novaLarguraReduc = ncol / 2;  // reduzir pela metade a largura
     int novaAlturaReduc = nlin / 2;   // reduzir pela metade a altura
 
     // Variáveis para receber as imagens processadas
-    int **reduzidaR, **reduzidaG, **reduzidaB;
+    int **reduzidaR, **reduzidaG, **reduzidaB, **ampliadaR, **ampliadaG, **ampliadaB;
 
+    char nomeAmplVizinho[150];
     char nomeReducVizinho[150];
-    
+
+    // 1. Ampliação com vizinho mais próximo
+    vizinho_proximo(novaLarguraAmpl, novaAlturaAmpl, &ampliadaR, &ampliadaG, &ampliadaB, 1);
+    nome_arquivo(nomeAmplVizinho, "_ampliada_vizinho");
+    salvar_ppm(nomeAmplVizinho, ampliadaR, ampliadaG, ampliadaB, novaLarguraAmpl, novaAlturaAmpl);
+
+    liberar_imagem(ampliadaR, novaAlturaAmpl);
+    liberar_imagem(ampliadaG, novaAlturaAmpl);
+    liberar_imagem(ampliadaB, novaAlturaAmpl);
+
+    // 2. Ampliação com interpolação linear (4 vizinhos)
+    interpolacao_bilinear(novaLarguraAmpl, novaAlturaAmpl, &ampliadaR, &ampliadaG, &ampliadaB, 1);
+    nome_arquivo(nomeAmplVizinho, "_ampliada_bilinear");
+    salvar_ppm(nomeAmplVizinho, ampliadaR, ampliadaG, ampliadaB, novaLarguraAmpl, novaAlturaAmpl);
+
+    // 3. Redução por vizinho mais próximo
+    vizinho_proximo(novaLarguraReduc, novaAlturaReduc, &reduzidaR, &reduzidaG, &reduzidaB, 0);
+    nome_arquivo(nomeReducVizinho, "_reduzida_vizinho");
+    salvar_ppm(nomeReducVizinho, reduzidaR, reduzidaG, reduzidaB, novaLarguraReduc, novaAlturaReduc);
+
+    liberar_imagem(reduzidaR, novaAlturaReduc);
+    liberar_imagem(reduzidaG, novaAlturaReduc);
+    liberar_imagem(reduzidaB, novaAlturaReduc);
+
     // 4. Redução com interpolação biquadrática (9 vizinhos)
     reducao_biquadratica(novaLarguraReduc, novaAlturaReduc, &reduzidaR, &reduzidaG, &reduzidaB);
-    snprintf(nomeReducVizinho, sizeof(nomeReducVizinho), "img/%s_reduzida_biquadratica.ppm", nome_base);
+    nome_arquivo(nomeReducVizinho, "_reduzida_biquadratica");
     salvar_ppm(nomeReducVizinho, reduzidaR, reduzidaG, reduzidaB, novaLarguraReduc, novaAlturaReduc);
 
     liberar_imagem(reduzidaR, novaAlturaReduc);
