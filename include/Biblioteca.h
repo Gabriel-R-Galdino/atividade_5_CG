@@ -19,6 +19,7 @@ void nome_arquivo(char *buffer, const char *sufixo);
 void salvar_ppm(const char *nome_arquivo, int **R, int **G, int **B, int largura, int altura);
 
 // Funções gerais
+int **criar_matriz(int largura, int altura);
 void liberar_memoria(void);
 void liberar_imagem(int **imagem, int altura);
 

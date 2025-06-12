@@ -20,24 +20,14 @@ void vizinho_proximo(int novaLargura, int novaAltura, int ***outR, int ***outG, 
         }
     }
 
-    *outR = malloc(novaAltura * sizeof(int *));
-    *outG = malloc(novaAltura * sizeof(int *));
-    *outB = malloc(novaAltura * sizeof(int *));
-
-    if (!(*outR) || !(*outG) || !(*outB)) {
-        printf("Erro ao alocar memória para a imagem ampliada.\n");
-        exit(1);
-    }
+    *outR = criar_matriz(novaLargura, novaAltura);
+    *outG = criar_matriz(novaLargura, novaAltura);
+    *outB = criar_matriz(novaLargura, novaAltura);
 
     for (int i = 0; i < novaAltura; i++) {
-        (*outR)[i] = malloc(novaLargura * sizeof(int));
-        (*outG)[i] = malloc(novaLargura * sizeof(int));
-        (*outB)[i] = malloc(novaLargura * sizeof(int));
-
         for (int j = 0; j < novaLargura; j++) {
             int x = (int)(j * escalaX + arredonda_corretamente);
             int y = (int)(i * escalaY + arredonda_corretamente);
-
             (*outR)[i][j] = imagemR[y][x];
             (*outG)[i][j] = imagemG[y][x];
             (*outB)[i][j] = imagemB[y][x];
@@ -65,20 +55,11 @@ void interpolacao_bilinear(int novaLargura, int novaAltura, int ***outR, int ***
         }
     }
 
-    *outR = malloc(novaAltura * sizeof(int *));
-    *outG = malloc(novaAltura * sizeof(int *));
-    *outB = malloc(novaAltura * sizeof(int *));
-
-    if (!(*outR) || !(*outG) || !(*outB)) {
-        printf("Erro ao alocar memória para a imagem ampliada.\n");
-        exit(1);
-    }
+    *outR = criar_matriz(novaLargura, novaAltura);
+    *outG = criar_matriz(novaLargura, novaAltura);
+    *outB = criar_matriz(novaLargura, novaAltura);
 
     for (int i = 0; i < novaAltura; i++) {
-        (*outR)[i] = malloc(novaLargura * sizeof(int));
-        (*outG)[i] = malloc(novaLargura * sizeof(int));
-        (*outB)[i] = malloc(novaLargura * sizeof(int));
-
         for (int j = 0; j < novaLargura; j++) {
             int x = (int)(j * escalaX + arredonda_corretamente);
             int y = (int)(i * escalaY + arredonda_corretamente);
@@ -95,22 +76,15 @@ void reducao_biquadratica(int novaLargura, int novaAltura, int ***outR, int ***o
     float escalaX = (float)ncol / novaLargura;
     float escalaY = (float)nlin / novaAltura;
 
-    *outR = malloc(novaAltura * sizeof(int *));
-    *outG = malloc(novaAltura * sizeof(int *));
-    *outB = malloc(novaAltura * sizeof(int *));
-
-    if (!(*outR) || !(*outG) || !(*outB)) {
-        printf("Erro ao alocar memória para a imagem reduzida.\n");
-        exit(1);
-    }
+    *outR = criar_matriz(novaLargura, novaAltura);
+    *outG = criar_matriz(novaLargura, novaAltura);
+    *outB = criar_matriz(novaLargura, novaAltura);
 
     for (int i = 0; i < novaAltura; i++) {
-        (*outR)[i] = malloc(novaLargura * sizeof(int));
-        (*outG)[i] = malloc(novaLargura * sizeof(int));
-        (*outB)[i] = malloc(novaLargura * sizeof(int));
         for (int j = 0; j < novaLargura; j++) {
             int x = (int)(j * escalaX);
             int y = (int)(i * escalaY);
+
             (*outR)[i][j] = media9(imagemR, x, y, ncol, nlin);
             (*outG)[i][j] = media9(imagemG, x, y, ncol, nlin);
             (*outB)[i][j] = media9(imagemB, x, y, ncol, nlin);
