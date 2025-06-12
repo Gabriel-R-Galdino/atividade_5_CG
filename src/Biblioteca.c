@@ -98,28 +98,6 @@ void salvar_ppm(const char *nome_arquivo, int **R, int **G, int **B, int largura
     printf("Imagem salva: %s\n", nome_arquivo);
 }
 
-// Função auxiliar: clamp
-int clamp(int val, int min, int max) {
-    if (val < min) return min;
-    if (val > max) return max;
-    return val;
-}
-
-// Função auxiliar: média de 9 vizinhos
-int media9(int **matriz, int x, int y, int largura, int altura) {
-    int soma = 0;
-    int contador = 0;
-    for (int i = -1; i <= 1; i++) {
-        for (int j = -1; j <= 1; j++) {
-            int xi = clamp(x + j, 0, largura - 1);
-            int yi = clamp(y + i, 0, altura - 1);
-            soma += matriz[yi][xi];
-            contador++;
-        }
-    }
-    return soma / contador;
-}
-
 void nome_arquivo(char *buffer, const char *sufixo) {
     int i = 0;
 
@@ -144,77 +122,6 @@ void nome_arquivo(char *buffer, const char *sufixo) {
     buffer[i] = '\0';
 }
 
-// Demais codigos devem ser adicionados aqui
-// 1. Ampliação pelo vizinho mais próximo e 3. Redução pelo vizinho mais próximo
-void vizinho_proximo(int novaLargura, int novaAltura, int ***outR, int ***outG, int ***outB, int flag) {
-    //Se flag = 1 = ampliação, se flag = 0 = redução
-    float escalaX = (float)ncol / novaLargura;
-    float escalaY = (float)nlin / novaAltura;
-
-    if (flag) {
-        if (escalaX > 1.0f || escalaY > 1.0f) {
-            printf("Tanto a largura quanto a altura precisam ser maiores que as originais\n");
-            exit(1);
-        }
-    } else {
-        if (escalaX < 1.0f || escalaY < 1.0f) {
-            printf("Tanto a largura quanto a altura precisam ser menores que as originais\n");
-            exit(1);
-        }
-    }
-
-    *outR = malloc(novaAltura * sizeof(int *));
-    *outG = malloc(novaAltura * sizeof(int *));
-    *outB = malloc(novaAltura * sizeof(int *));
-
-    if (!(*outR) || !(*outG) || !(*outB)) {
-        printf("Erro ao alocar memória para a imagem vizinho mais proximo.\n");
-        exit(1);
-    }
-
-    for (int i = 0; i < novaAltura; i++) {
-        (*outR)[i] = malloc(novaLargura * sizeof(int));
-        (*outG)[i] = malloc(novaLargura * sizeof(int));
-        (*outB)[i] = malloc(novaLargura * sizeof(int));
-
-        for (int j = 0; j < novaLargura; j++) {
-            int x = (int)(j * escalaX);
-            int y = (int)(i * escalaY);
-
-            (*outR)[i][j] = imagemR[y][x];
-            (*outG)[i][j] = imagemG[y][x];
-            (*outB)[i][j] = imagemB[y][x];
-        }
-    }
-}
-
-// 4. Redução com interpolação biquadrática (9 vizinhos)
-void reducao_biquadratica(int novaLargura, int novaAltura, int ***outR, int ***outG, int ***outB) {
-    float escalaX = (float)ncol / novaLargura;
-    float escalaY = (float)nlin / novaAltura;
-
-    *outR = malloc(novaAltura * sizeof(int *));
-    *outG = malloc(novaAltura * sizeof(int *));
-    *outB = malloc(novaAltura * sizeof(int *));
-
-    if (!(*outR) || !(*outG) || !(*outB)) {
-        printf("Erro ao alocar memória para a imagem reduzida.\n");
-        exit(1);
-    }
-
-    for (int i = 0; i < novaAltura; i++) {
-        (*outR)[i] = malloc(novaLargura * sizeof(int));
-        (*outG)[i] = malloc(novaLargura * sizeof(int));
-        (*outB)[i] = malloc(novaLargura * sizeof(int));
-        for (int j = 0; j < novaLargura; j++) {
-            int x = (int)(j * escalaX);
-            int y = (int)(i * escalaY);
-            (*outR)[i][j] = media9(imagemR, x, y, ncol, nlin);
-            (*outG)[i][j] = media9(imagemG, x, y, ncol, nlin);
-            (*outB)[i][j] = media9(imagemB, x, y, ncol, nlin);
-        }
-    }
-}
 
 // Função para liberar memória de uma imagem
 void liberar_imagem(int **imagem, int altura) {
