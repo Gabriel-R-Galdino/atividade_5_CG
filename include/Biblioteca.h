@@ -19,15 +19,18 @@ void nome_arquivo(char *buffer, const char *sufixo);
 void salvar_ppm(const char *nome_arquivo, int **R, int **G, int **B, int largura, int altura);
 
 // Funções gerais
+int **criar_matriz(int largura, int altura);
 void liberar_memoria(void);
 void liberar_imagem(int **imagem, int altura);
 
 // Funções matemáticas
 int clamp(int val, int min, int max);
 int media9(int **matriz, int x, int y, int largura, int altura);
+int media4(int **matriz, int x, int y, int largura, int altura);
 
 // Funções de amplicação & redução
 void vizinho_proximo(int novaLargura, int novaAltura, int ***outR, int ***outG, int ***outB, int flag);
+void interpolacao_bilinear(int novaLargura, int novaAltura, int ***outR, int ***outG, int ***outB, int flag);
 void reducao_biquadratica(int novaLargura, int novaAltura, int ***outR, int ***outG, int ***outB);
 
 #endif

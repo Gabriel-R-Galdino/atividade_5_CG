@@ -21,3 +21,15 @@ int media9(int **matriz, int x, int y, int largura, int altura) {
     }
     return soma / contador;
 }
+
+// Calcula a média dos 4 vizinhos de matriz[y][x], levando em conta os limites
+// da matriz.
+int media4(int **matriz, int x, int y, int largura, int altura) {
+    int soma = 0;
+    soma += (x > 0) ? matriz[y][x - 1] : matriz[y][x];
+    soma += (x < largura - 1) ? matriz[y][x + 1] : matriz[y][x];
+    soma += (y > 0) ? matriz[y - 1][x] : matriz[y][x];
+    soma += (y < altura - 1) ? matriz[y + 1][x] : matriz[y][x];
+
+    return soma / 4;
+}

@@ -16,21 +16,9 @@ void ler_cabecalho(void) {
 
 // Função para ler a imagem do arquivo PPM
 void ler_imagem(void) {
-    imagemR = (int **)malloc(nlin * sizeof(int *));
-    imagemG = (int **)malloc(nlin * sizeof(int *));
-    imagemB = (int **)malloc(nlin * sizeof(int *));
-
-    if (!imagemR || !imagemG || !imagemB) {
-        printf("Erro ao alocar memória para a imagem.\n");
-        exit(1);
-    }
-
-    // Alocação de memória para cada linha da imagem
-    for (int i = 0; i < nlin; i++) {
-        imagemR[i] = (int *)malloc(ncol * sizeof(int));
-        imagemG[i] = (int *)malloc(ncol * sizeof(int));
-        imagemB[i] = (int *)malloc(ncol * sizeof(int));
-    }
+    imagemR = criar_matriz(ncol, nlin);
+    imagemG = criar_matriz(ncol, nlin);
+    imagemB = criar_matriz(ncol, nlin);
 
     for (int lin = 0; lin < nlin; lin++) {
         for (int col = 0; col < ncol; col++) {
@@ -121,7 +109,6 @@ void nome_arquivo(char *buffer, const char *sufixo) {
     }
     buffer[i] = '\0';
 }
-
 
 // Função para liberar memória de uma imagem
 void liberar_imagem(int **imagem, int altura) {
