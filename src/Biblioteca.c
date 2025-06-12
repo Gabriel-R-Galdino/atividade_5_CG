@@ -86,6 +86,7 @@ void salvar_ppm(const char *nome_arquivo, int **R, int **G, int **B, int largura
     printf("Imagem salva: %s\n", nome_arquivo);
 }
 
+// Função pra adicionar nome do arquivo
 void nome_arquivo(char *buffer, const char *sufixo) {
     int i = 0;
 
@@ -128,4 +129,23 @@ void liberar_memoria(void) {
     free(imagemR);
     free(imagemG);
     free(imagemB);
+}
+
+// Função pra criar matriz
+int **criar_matriz(int largura, int altura) {
+    int **ret = malloc(altura * sizeof(int *));
+    if (!ret) {
+        printf("Erro ao alocar memória para a imagem.");
+        exit(1);
+    }
+
+    for (int i = 0; i < altura; i++) {
+        ret[i] = malloc(largura * sizeof(int));
+        if (!ret[i]) {
+            printf("Erro ao alocar memória para a imagem.");
+            exit(1);
+        }
+    }
+
+    return ret;
 }
