@@ -40,6 +40,8 @@ O programa deve ler uma imagem `.ppm` a partir do diretório `img/` e gerar **qu
 ├── src/                # Códigos-fonte (.c)
 │   ├── Main.c
 │   └── Biblioteca.c
+│   └── AmpRed.c
+│   └── Matematica.c
 ├── include/            # Arquivo de cabeçalho (.h)
 │   └── Biblioteca.h
 ├── Makefile
