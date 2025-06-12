@@ -110,24 +110,6 @@ void nome_arquivo(char *buffer, const char *sufixo) {
     buffer[i] = '\0';
 }
 
-int **criar_matriz(int largura, int altura) {
-    int **ret = malloc(altura * sizeof(int *));
-    if (!ret) {
-        printf("Erro ao alocar memória para a imagem.");
-        exit(1);
-    }
-
-    for (int i = 0; i < altura; i++) {
-        ret[i] = malloc(largura * sizeof(int));
-        if (!ret[i]) {
-            printf("Erro ao alocar memória para a imagem.");
-            exit(1);
-        }
-    }
-
-    return ret;
-}
-
 // Função para liberar memória de uma imagem
 void liberar_imagem(int **imagem, int altura) {
     for (int i = 0; i < altura; i++) {
