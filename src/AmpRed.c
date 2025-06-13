@@ -2,23 +2,11 @@
 
 // 1. Ampliação pelo vizinho mais próximo e 3. Redução pelo vizinho mais próximo
 void vizinho_proximo(int novaLargura, int novaAltura, int ***outR, int ***outG, int ***outB, int flag) {
-    // Se flag = 1 = ampliação, se flag = 0 = redução
     float escalaX = (float)ncol / novaLargura;
     float escalaY = (float)nlin / novaAltura;
 
-    float arredonda_corretamente = 0.5f;
-    if (flag) {
-        if (escalaX > 1.0f || escalaY > 1.0f) {
-            printf("Tanto a largura quanto a altura precisam ser maiores que as originais\n");
-            exit(1);
-        }
-        arredonda_corretamente = 0;
-    } else {
-        if (escalaX < 1.0f || escalaY < 1.0f) {
-            printf("Tanto a largura quanto a altura precisam ser menores que as originais\n");
-            exit(1);
-        }
-    }
+    // Se flag = 1, ampliação; se flag = 0, redução
+    float arredonda_corretamente = flag ? 0.0f : 0.5f;
 
     *outR = criar_matriz(novaLargura, novaAltura);
     *outG = criar_matriz(novaLargura, novaAltura);
@@ -41,19 +29,8 @@ void interpolacao_bilinear(int novaLargura, int novaAltura, int ***outR, int ***
     float escalaX = (float)ncol / novaLargura;
     float escalaY = (float)nlin / novaAltura;
 
-    float arredonda_corretamente = 0.5f;
-    if (flag) {
-        if (escalaX > 1.0f || escalaY > 1.0f) {
-            printf("Tanto a largura quanto a altura precisam ser maiores que as originais\n");
-            exit(1);
-        }
-        arredonda_corretamente = 0;
-    } else {
-        if (escalaX < 1.0f || escalaY < 1.0f) {
-            printf("Tanto a largura quanto a altura precisam ser menores que as originais\n");
-            exit(1);
-        }
-    }
+    // Se flag = 1, ampliação; se flag = 0, redução
+    float arredonda_corretamente = flag ? 0.0f : 0.5f;
 
     *outR = criar_matriz(novaLargura, novaAltura);
     *outG = criar_matriz(novaLargura, novaAltura);
