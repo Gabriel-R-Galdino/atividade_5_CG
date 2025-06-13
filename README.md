@@ -101,7 +101,7 @@ O programa deve ler uma imagem `.ppm` a partir do diretório `img/` e gerar **qu
 - A imagem `.ppm` deve estar dentro da pasta `img/` caso queira adicionar novas imagens.
 - As imagens de saída também serão salvas dentro da pasta `img/`.
 - Ao executar o programa, informe o caminho relativo como: `Nome_Da_Imagem.ppm`
-- O relatório se encontra clicando [Aqui](https://github.com/Gabriel-R-Galdino/atividade_5_CG/blob/main/relatorio%20CG.pdf).
+- O `relatório` se encontra clicando [Aqui](https://github.com/Gabriel-R-Galdino/atividade_5_CG/blob/main/relatorio%20CG.pdf).
 
 ---
 
