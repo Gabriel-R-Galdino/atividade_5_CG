@@ -1,6 +1,6 @@
 #include "Biblioteca.h"
 
-int main() {
+int main(void) {
     // Carregar a imagem
     if (!carregar_imagem()) return 1;
 
@@ -12,19 +12,33 @@ int main() {
     printf("Dimensões atuais: %dx%d\n", ncol, nlin);
 
     int novaLarguraAmpl, novaAlturaAmpl;
-    printf("Digite a nova largura e altura (para ampliação):");
-    scanf("%d %d", &novaLarguraAmpl, &novaAlturaAmpl);
-    if (novaLarguraAmpl <= ncol || novaAlturaAmpl <= nlin) {
-        printf("Tanto a altura quanto a largura devem ser maiores que o valor atual!\n");
-        return 1;
+    int novaLarguraReduc, novaAlturaReduc;
+    float fatX, fatY;
+
+    printf("Digite os fatores de ampliação (x e y): ");
+    while (1) {
+        scanf("%f %f", &fatX, &fatY);
+        if (fatX <= 1.0f || fatY <= 1.0f) {
+            printf("Tanto a altura quanto a largura devem ser maiores que o valor atual!\n");
+            return 1;
+        } else {
+            novaLarguraAmpl = fatX * ncol;
+            novaAlturaAmpl = fatY * nlin;
+            break;
+        }
     }
 
-    int novaLarguraReduc, novaAlturaReduc;
-    printf("Digite a nova largura e altura (para redução):");
-    scanf("%d %d", &novaLarguraReduc, &novaAlturaReduc);
-    if (novaLarguraReduc >= ncol || novaAlturaReduc >= nlin) {
-        printf("Tanto a altura quanto a largura devem ser menores que o valor atual!\n");
-        return 1;
+    printf("Digite os fatores de redução (x e y): ");
+    while (1) {
+        scanf("%f %f", &fatX, &fatY);
+        if (fatX >= 1.0f || fatY >= 1.0f) {
+            printf("Tanto a altura quanto a largura devem ser menores que o valor atual!\n");
+            return 1;
+        } else {
+            novaLarguraReduc = fatX * ncol;
+            novaAlturaReduc = fatY * nlin;
+            break;
+        }
     }
 
     printf("Gerando imagens...\n");
@@ -74,3 +88,4 @@ int main() {
 
     return 0;
 }
+
